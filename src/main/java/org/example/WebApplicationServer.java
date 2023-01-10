@@ -1,12 +1,14 @@
 package org.example;
 
-import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
+/**
+ * Tomcat 실행을 위한 클래스
+ */
 public class WebApplicationServer
 {
     private static final Logger log = LoggerFactory.getLogger(WebApplicationServer.class);
