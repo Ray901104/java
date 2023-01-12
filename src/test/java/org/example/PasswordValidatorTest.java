@@ -23,11 +23,20 @@ public class PasswordValidatorTest
                 .doesNotThrowAnyException();
     }
 
+    @DisplayName("비밀번호가 8자 미만 또는 12자 초과하는 경우 IllegalArgumentException 예외가 발생한다.")
+    @Test
+    void validatePasswordTest2()
+    {
+        // IllegalArgumentException 예외가 발생하는지 검증한다.
+        assertThatCode(() -> PasswordValidator.validate("abcdabcdabcda"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
     // 경계값 테스트
     @DisplayName("비밀번호가 8자 미만 또는 12자 초과하는 경우 IllegalArgumentException 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"aabbcce", "aabbccddeeffg"})
-    void validatePasswordTest2(String password)
+    void validatePasswordTest3(String password)
     {
         // IllegalArgumentException 예외가 발생하는지 검증한다.
         assertThatCode(() -> PasswordValidator.validate(password))
