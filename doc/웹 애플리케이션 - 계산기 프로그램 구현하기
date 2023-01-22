@@ -36,3 +36,9 @@
   - Cookie
   - Set-Cookie
   - Authorization 등
+
+# 설계
+HttpRequest
+ - RequestLine (★)
+ - Header
+ - Body
