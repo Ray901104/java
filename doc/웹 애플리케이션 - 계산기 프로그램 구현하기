@@ -40,5 +40,8 @@
 # 설계
 HttpRequest
  - RequestLine (★)
+  (1) HTTP Method
+  (2) Path
+  (3) QueryString
  - Header
  - Body
