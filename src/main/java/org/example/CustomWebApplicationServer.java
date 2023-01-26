@@ -1,5 +1,10 @@
 package org.example;
 
+import org.example.calculator.Calculator;
+import org.example.calculator.operator.PositiveNumber;
+import org.example.calculatorWebApplication.HttpRequest;
+import org.example.calculatorWebApplication.HttpResponse;
+import org.example.calculatorWebApplication.QueryStrings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,11 +46,30 @@ public class CustomWebApplicationServer
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                     DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
-                    String line;
+//                    String line;
+//
+//                    while ((line = bufferedReader.readLine()) != "")
+//                    {
+//                        System.out.println(line);
+//                    }
 
-                    while ((line = bufferedReader.readLine()) != "")
+                    HttpRequest httpRequest = new HttpRequest(bufferedReader);
+
+                    // GET /calculate?operand1=11&operator=*&operand2=55 HTTP/1.1
+                    if (httpRequest.isGetRequest() && httpRequest.matchPath("/calculate"))
                     {
-                        System.out.println(line);
+                        QueryStrings queryStrings = httpRequest.getQueryStrings();
+
+                        int operand1 = Integer.parseInt(queryStrings.getValue("operand1"));
+                        String operator = queryStrings.getValue("operator");
+                        int operand2 = Integer.parseInt(queryStrings.getValue("operand2"));
+
+                        int result = Calculator.calculate(new PositiveNumber(operand1), operator, new PositiveNumber(operand2));
+                        byte[] body = String.valueOf(result).getBytes();
+
+                        HttpResponse response = new HttpResponse(dataOutputStream);
+                        response.response200Header("application/json", body.length);
+                        response.responseBody(body);
                     }
                 }
             }

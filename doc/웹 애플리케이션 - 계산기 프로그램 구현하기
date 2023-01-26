@@ -45,3 +45,6 @@ HttpRequest
   (3) QueryString
  - Header
  - Body
+
+HttpResponse
+ -
