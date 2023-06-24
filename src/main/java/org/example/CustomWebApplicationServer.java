@@ -1,18 +1,12 @@
 package org.example;
 
-import org.example.calculator.Calculator;
-import org.example.calculator.operator.PositiveNumber;
 import org.example.calculatorWebApplication.ClientRequestHandler;
-import org.example.calculatorWebApplication.HttpRequest;
-import org.example.calculatorWebApplication.HttpResponse;
-import org.example.calculatorWebApplication.QueryStrings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
