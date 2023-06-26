@@ -1,7 +1,6 @@
 package org.example.mvc;
 
-import org.example.mvc.controller.Controller;
-import org.example.mvc.controller.HomController;
+import org.example.mvc.controller.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,15 +8,19 @@ import java.util.Map;
 public class RequestMappingHandlerMapping
 {
     // url, controller
-    private final Map<String, Controller> mappings = new HashMap<>();
+    private final Map<HandlerKey, Controller> mappings = new HashMap<>();
 
     void init()
     {
-        mappings.put("/", new HomController());
+        // Request 메소드에 따른 분류를 하기 위해 HandlerKey 생성
+        mappings.put(new HandlerKey(RequestMethod.GET, "/"), new HomeController());
+        mappings.put(new HandlerKey(RequestMethod.GET, "/users"), new UserListController()); // GET
+        mappings.put(new HandlerKey(RequestMethod.POST, "/users"), new UserCreatedController()); // POST
+        mappings.put(new HandlerKey(RequestMethod.GET, "/user/form"), new ForwardController("/user/form"));
     }
 
-    public Controller findHandler(String urlPath)
+    public Controller findHandler(HandlerKey handlerKey)
     {
-        return mappings.get(urlPath);
+        return mappings.get(handlerKey);
     }
 }
